@@ -20,11 +20,11 @@
 <link rel="shortcut icon" href="/images/favicon.png">
 
 
-<title>分类 - 前端 - 文艺青年</title>
+<title>三目运算赋值优良的写法 - 文艺青年</title>
 
-<meta name="keywords" content="原创IT博客你应该为梦想全力以赴，而不是到最后甘愿认输。">
+<meta name="keywords" content="iOS, 三目运算">
 
-<meta name="description " content="前端，博客，个人博客">
+<meta name="description " content="来自2015.4.27的笔记：三目运算赋值优良的写法">
 </head>
 <body>
 <div id="nav">
@@ -91,25 +91,25 @@
 </div>
             <div class="page-title">
     <ul>
-        <li class="">
-            <a href="/" data-name="最近文章">最近</a>
-        </li>
+        <li><a href="/">最新</a></li>
         
-        <li class="active">
-            <a href="/categories/front-end" data-name="前端">前端</a>
-        </li>
-        
-        <li class="">
-            <a href="/categories/back-end" data-name="node">node</a>
-        </li>
-        
-        <li class="">
-            <a href="/categories/product-design" data-name="框架">框架</a>
-        </li>
-        
-        <li class="">
-            <a href="/categories/others" data-name="其他">其他</a>
-        </li>
+            
+                <li class="">
+                    <a href="/categories/front-end" data-name="前端">前端</a>
+                </li>
+            
+                <li class="active">
+                    <a href="/categories/back-end" data-name="node">node</a>
+                </li>
+            
+                <li class="">
+                    <a href="/categories/product-design" data-name="框架">框架</a>
+                </li>
+            
+                <li class="">
+                    <a href="/categories/others" data-name="其他">其他</a>
+                </li>
+            
         
         <li class="page-search">
     <form id="search" class="search-form">
@@ -150,116 +150,66 @@
     </ul>
 </div>
 <div class="main-inner">
-    
-    
-    
-<article class="post">
-    
-    <div class="post-header">
-        <div class="post-meta">
-            <a href="https://www.tangkunyin.com" target="_self">
-                <strong>唐先森</strong>
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post-header">
+            <div class="post-author clearfix">
+                <a class="avatar fleft" href="https://www.tangkunyin.com" target="_blank">
+                    <img width="48" src="/images/favicon.png" alt="avatar"/>
+                </a>
+                <p><span class="label">作者</span>
+                    <a href="https://about.tangkunyin.com" target="_blank">唐先森</a>
+                    <span title="最后编辑于2018-06-03">2018-06-03</span>
+                </p>
+                <p>一个写代码的「伪文人」</p>
+            </div>
+            <h2 class="post-title">三目运算赋值优良的写法</h2>
+            <div class="post-meta">
+                本文总共241个字 | 您是第<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
+            </div>
+        </div>
+        <div class="post-content markdown-body">
+            <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">一般写法：</span><br><span class="line"><span class="keyword">float</span> tempOffset = wordsDisplay == DisPlayBottom ? -80 : <span class="number">80</span>;</span><br><span class="line"></span><br><span class="line">优质写法：</span><br><span class="line"></span><br><span class="line"><span class="keyword">float</span> offset = (DisPlayBottom == wordsDisplay) ? - 80 : <span class="number">80</span>;</span><br><span class="line"></span><br><span class="line">遵循常量放左边的原则</span><br><span class="line"></span><br><span class="line">三目运算也可以这么写：</span><br><span class="line">NSString *filetestpaht;</span><br><span class="line">filetestpaht = filetestpaht ? : [NSString <span class="string">stringWithFormat:</span>@<span class="string">"abc"</span>];</span><br></pre></td></tr></table></figure>
+
+        </div>
+        <div class="post-tool">
+            <a class="btn-thumbs-up" href="javascript:void(0);" data-cid="52" title="95">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 打赏
             </a>
-            <em>·</em>2018-06-03
         </div>
-        <a class="post-title" href="/front-end/property-and-memberVar-in-iOS/1528011307.html" target="_self" title="属性变量（Property）与成员变量的区别">属性变量（Property）与成员变量的区别</a>
-        <div class="post-meta">
-            <a href="/tags" target="_self"><i class="fa fa-tags"></i></a>
+        
+        <div class="post-tags">标签：
             
-                <em>·</em>
-                <a href="http://lsw.name/tags/iOS/" target="_self">iOS</a>
+            <a href="/tags/iOS/">iOS</a>
             
         </div>
-    </div>
-    <div class="post-desc">
-        来自2015.4.29的笔记：属性变量（property）与成员变量的区别。
-    </div>
-</article>
-
-
-
+        
+    </article>
+    
+    <p>本文代表个人观点，内容仅供参考。若有不恰当之处，望不吝赐教！</p>
     
     
-<article class="post">
-    
-    <!-- 有配图默认渲染第一张 -->
-    <div class="post-cover">
-        <a href="/front-end/permalink-optimize-hexo/1528003174.html" target="_self" title="将Hexo博客url优化进行到底"
-           style="background-image:url(/img/2017/hexo-blog-basic.jpg)"></a>
-    </div>
-    
-    <div class="post-header">
-        <div class="post-meta">
-            <a href="https://www.tangkunyin.com" target="_self">
-                <strong>唐先森</strong>
-            </a>
-            <em>·</em>2018-06-03
-        </div>
-        <a class="post-title" href="/front-end/permalink-optimize-hexo/1528003174.html" target="_self" title="将Hexo博客url优化进行到底">将Hexo博客url优化进行到底</a>
-        <div class="post-meta">
-            <a href="/tags" target="_self"><i class="fa fa-tags"></i></a>
-            
-                <em>·</em>
-                <a href="http://lsw.name/tags/hexo/" target="_self">hexo</a>
-            
-                <em>·</em>
-                <a href="http://lsw.name/tags/website/" target="_self">网站</a>
-            
-        </div>
-    </div>
-    <div class="post-desc">
-        半个月前，患有强迫症晚期的我又拾起了hexo。这次通过阅读源码，加上了一直想要的时间戳变量。希望你们喜欢！
-    </div>
-</article>
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = 'http://lsw.name/back-end/three-unary-iOS/1528015549.html';
+        this.page.identifier = 'back-end/three-unary-iOS/1528015549.html';
+    };
+    (function () { // DON'T EDIT BELOW THIS LINE
+        var d = document, disqus_shortname = 'shuoit', s = d.createElement('script');
+        s.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+        Disqus.</a></noscript>
 
-
-
-    
-    
-<article class="post">
-    
-    <!-- 有配图默认渲染第一张 -->
-    <div class="post-cover">
-        <a href="/front-end/hexo-links/1483800845.html" target="_self" title="在hexo博客中打造相对完美的URL"
-           style="background-image:url(/img/2017/hexo-blog-basic.jpg)"></a>
-    </div>
-    
-    <div class="post-header">
-        <div class="post-meta">
-            <a href="https://www.tangkunyin.com" target="_self">
-                <strong>唐先森</strong>
-            </a>
-            <em>·</em>2017-01-07
-        </div>
-        <a class="post-title" href="/front-end/hexo-links/1483800845.html" target="_self" title="在hexo博客中打造相对完美的URL">在hexo博客中打造相对完美的URL</a>
-        <div class="post-meta">
-            <a href="/tags" target="_self"><i class="fa fa-tags"></i></a>
-            
-                <em>·</em>
-                <a href="http://lsw.name/tags/hexo/" target="_self">hexo</a>
-            
-                <em>·</em>
-                <a href="http://lsw.name/tags/website/" target="_self">网站</a>
-            
-        </div>
-    </div>
-    <div class="post-desc">
-        动态网站的URL可以通过服务器的伪静态规则设置，想怎么搞就怎么搞。可类似hexo这样的静态生成器要想有一个实用好看的URL却不是一件容易的事情，尤其是还带中文的情况。本文将讨论下如何在hexo中打造相对完美的URL
-    </div>
-</article>
-
-
-
-    
 </div>
-<!-- 分页开始 -->
-
-<div id="btn-pager">
-    
-    <a class="extend prev" rel="prev" href="/categories/front-end/page/3/">上一页</a><a class="page-number" href="/categories/front-end/">1</a><a class="page-number" href="/categories/front-end/page/2/">2</a><a class="page-number" href="/categories/front-end/page/3/">3</a><span class="page-number current">4</span>
-</div>
-
-
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
         </div><!-- end #main-->
     </div><!-- end #body -->
     <footer class="footer">
