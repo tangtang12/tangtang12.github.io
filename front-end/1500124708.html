@@ -1,0 +1,291 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="zh-CN">
+
+<head>
+    <!--[if lte IE 9]>
+<meta http-equiv="refresh" content="0;url=http://lsw.name/warn.html">
+<![endif]-->
+<meta charset="utf-8">
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+<meta http-equiv="mobile-agent" content="format=html5; url=http://lsw.name">
+<meta name="author" content="刘某某">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/SimpleStyle.min.css">
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+
+<title>promise 原理 - 文艺青年</title>
+
+<meta name="keywords" content="原创IT博客你应该为梦想全力以赴，而不是到最后甘愿认输。">
+
+<meta name="description " content="前端，博客，个人博客">
+</head>
+<body>
+<div id="nav">
+    <nav class="nav-menu">
+        <a class="site-name current" href="/" title="说">说</a>
+        <a class="site-index current" href="/"><i class="fa fa-home"></i><span>首页</span></a>
+        <a href="/archives" title="归档"><i class="fa fa-archives"></i><span>归档</span></a>
+        <a href="/tags" title="标签"><i class="fa fa-tags"></i><span>标签</span></a>
+        <!-- custom single page of menus -->
+        
+        
+        <a href="/help" title="帮助">
+            <i class="fa fa-question-circle"></i>
+            <span>帮助</span>
+        </a>
+        
+    </nav>
+</div>
+
+<div class="nav-user">
+    <a class="btn-search" href="#"><i class="fa fa-search"></i></a>
+    <a class="btn-read-mode" href="#"><i class="fa fa-sun-o"></i></a>
+    <a class="btn-sns-qr" href="javascript:"><i class="fa fa-telegram"></i></a>
+</div>
+
+<div id="wrapper" class="clearfix">
+    <div id="body">
+        <div class="main" id="main">
+            <div id="cover">
+    <div class="cover-img"></div>
+    <div class="cover-info">
+        
+        <h1 class="cover-siteName">说IT</h1>
+        <h3 class="cover-siteTitle">用代码摇滚这个世界</h3>
+        <p class="cover-siteDesc">一个关注技术与人文的IT博客</p>
+        <div class="cover-sns">
+            
+            <div class="btn btn-telegram">
+                <a href="http://t.me/kunyintang" target="_blank" title="telegram" ref="friend">
+                    <i class="fa fa-telegram"></i>
+                </a>
+            </div>
+            
+            <div class="btn btn-instagram">
+                <a href="https://www.instagram.com/mtangsir/" target="_blank" title="instagram" ref="friend">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </div>
+            
+            <div class="btn btn-twitter">
+                <a href="https://twitter.com/tangkunyin" target="_blank" title="twitter" ref="friend">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </div>
+            
+            <div class="btn btn-github">
+                <a href="https://github.com/tangkunyin" target="_blank" title="github" ref="friend">
+                    <i class="fa fa-github"></i>
+                </a>
+            </div>
+            
+        </div>
+    </div>
+</div>
+            <div class="page-title">
+    <ul>
+        <li><a href="/">最新</a></li>
+        
+            
+                <li class="active">
+                    <a href="/categories/front-end" data-name="前端">前端</a>
+                </li>
+            
+                <li class="">
+                    <a href="/categories/back-end" data-name="node">node</a>
+                </li>
+            
+                <li class="">
+                    <a href="/categories/product-design" data-name="框架">框架</a>
+                </li>
+            
+                <li class="">
+                    <a href="/categories/others" data-name="其他">其他</a>
+                </li>
+            
+        
+        <li class="page-search">
+    <form id="search" class="search-form">
+        <label for="s" class="sr-only">请输入关键字</label>
+        <input class="search-field" type="text" name="s" class="text" placeholder="请输入关键字" />
+        <button type="submit" class="search-form-submit" title="搜索"><i class="fa fa-search"></i></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+</li>
+
+    </ul>
+</div>
+<div class="main-inner">
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post-header">
+            <div class="post-author clearfix">
+                <a class="avatar fleft" href="https://lsw.name" target="_blank">
+                    <img width="48" src="/images/favicon.png" alt="avatar"/>
+                </a>
+                <p><span class="label">作者</span>
+                    <a href="https://lsw.name" target="_blank">刘某某</a>
+                    <span title="最后编辑于2017-07-15">2017-07-15</span>
+                </p>
+                <p>一个写代码的「伪文人」</p>
+            </div>
+            <h2 class="post-title">Promise 原理</h2>
+            <div class="post-meta">
+                本文总共2950个字 | 您是第<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
+            </div>
+        </div>
+        <div class="post-content markdown-body">
+            <h2 id="react的路由"><a href="#react的路由" class="headerlink" title="react的路由"></a>react的路由</h2><p>使用 react 路由</p>
+<blockquote>
+<p>学习 react 路由[<a href="http://reacttraining.cn/web/api/]">http://reacttraining.cn/web/api/]</a></p>
+<ul>
+<li>1.安装 yarn-add react-router-dom<br>———-3及以前版本称为react-router<br>———-4及最近版本称为react-router-dom</li>
+</ul>
+<p>常用的方法</p>
+<ul>
+<li>2.BrowserRouter vs HashRouter 它是两种常用的路由实现思想，BrowserRouter 浏览器路由，HashRouter 哈希路由<br>[BrowserRouter]它是基于 H5 中的 history API(pushState,replaceState,popState)来保持 UI 和 URL 同步，真实项目中应用的不多，一般只有当前项目是基于服务器渲染的才会使用浏览器路由<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">http:<span class="comment">//www.demo.com/</span></span><br><span class="line">http:<span class="comment">//www.demo.com/personal</span></span><br><span class="line">http:<span class="comment">//www.demo.com/personal/login</span></span><br><span class="line">[HashRouter]真实项目中(前后端分离的项目:客户端渲染)我们经常使用的哈希路由来完成的，他依据相同的页面地址，不同的哈希值，来规划当前页面中的那一个组件呈现渲染，他基于原生 JS 构造了一套类似于 history API 的机制，每一次路由的切换都是基于 history stack 完成的</span><br><span class="line">http:<span class="comment">//www.demo.com/#/</span></span><br><span class="line">http:<span class="comment">//www.demo.com/#/personal</span></span><br><span class="line">http:<span class="comment">//www.demo.com/#/personal/login</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>HashRouter</p>
+<ul>
+<li>1.当前项目一旦使用了 HashRouter，则默认在页面的地址后面加上”#/“,也就是 HASH 默认值是一个斜杠，我们一般让其显示首页组件信息内容</li>
+<li>2.HashRouter 中只能出现一个子元素</li>
+<li>3.HashRouter 机制中，我们需要根据哈希地址不同，展示不同的组件内容，此时需要使用 route</li>
+</ul>
+</blockquote>
+<h3 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h3><ul>
+<li>path 设置匹配哈希值后面的值(地址)，但是默认不是严格匹配，当前页面哈希地址只要包含完整的它(内容是不变的)，都能被匹配上</li>
+<li>path=’/‘ 和它匹配的地址只要有斜杠即可(都能和它匹配)</li>
+<li>path=’/user’:”#/user/login”也可以匹配，但是”#/user2”这个无法匹配</li>
+<li>在Route加上属性exact，可以使其path严谨匹配(只有url的哈希值和path设定的值相等才可以匹配到)</li>
+<li>path=”/A” “#/A”可以被匹配 “#/“不可以匹配</li>
+<li>在Route加上属性static，可以使其严格匹配</li>
+<li>path=”/A/“  path=”/A/“匹配 path=”/A”不匹配 path=”/A/B”匹配</li>
+<li>属性render：当页面的哈希地址和path匹配，会把render规划的方法执行，在方法中一般做”权限校验” (渲染组件之前验证是否存在权限，不存在做一些特殊处理)</li>
+<li>component 一旦哈希值和当前 Route 的 path 相同了，则渲染 component 指定的组件</li>
+<li>默认情况下，会和每一个 route 都做校验(哪怕之前已经有校验成功的),switch 组件可以解决这个问题，和 Switch Case 一样，只要有 一种情况校验成功，就不在向后检验了<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM,&#123;render&#125; <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"><span class="comment">// noinspection ES6CheckImport</span></span><br><span class="line"><span class="keyword">import</span> &#123;HashRouter,Route,Switch,Redirect&#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> A <span class="keyword">from</span> <span class="string">"./hash/A"</span>;</span><br><span class="line"><span class="keyword">import</span> B <span class="keyword">from</span> <span class="string">"./hash/B"</span>;</span><br><span class="line"><span class="keyword">import</span> C <span class="keyword">from</span> <span class="string">"./hash/C"</span>;</span><br><span class="line">render(&lt;HashRouter&gt;</span><br><span class="line">&lt;Switch&gt;</span><br><span class="line">&lt;Route path='/' component=&#123;C&#125; exact  /&gt;</span><br><span class="line">&lt;Route path='/A' component=&#123;A&#125; /&gt;</span><br><span class="line">&lt;Route path='/pay' component=&#123;B&#125; /&gt;</span><br><span class="line">&lt;Route path='/pay1' render=&#123;()=&gt;&#123;</span><br><span class="line">//一般在 render 中处理的是权限校验</span><br><span class="line">let flag=localStorage.getItem('FLAG');</span><br><span class="line">if (flag&amp;&amp;flag==='SAFE')&#123;</span><br><span class="line">return &lt;C/&gt;;</span><br><span class="line">&#125;</span><br><span class="line">return '当前环境不安全，不利于支付'</span><br><span class="line">&#125;&#125; /&gt;</span><br><span class="line"></span><br><span class="line">        &#123;/*上述都设置完成后，会在末尾设置一个匹配，以上都不符合的情况下，我们认为路由地址是非法的地址，我们做一些特殊处理，肉Route中path不写,就是匹配所有地址规则*/&#125;</span><br><span class="line">        &#123;/*&lt;Route render=&#123;()=&gt;&lt;div&gt;404&lt;/div&gt;&#125; /&gt;*/&#125;</span><br><span class="line"></span><br><span class="line">        &#123;/*也可以基于redirect 重定向到哪</span><br><span class="line">              to [string]重新定向到新的地址后的组件</span><br><span class="line">              to [OBJECT]重新定向到新的地址，只不过指定了更多的信息</span><br><span class="line">                     &#123;PATHNAME:定向的地址,search:给定向的地址问号传参(结合当前案例，真实项目中，我们有时候会根据是否存在问号参数值来统计是正常进入首页还是非正常跳转过来的，也有可能根据问号传参值做不同的事情),state:给定向后的组件传递一些信息&#125;</span><br><span class="line">              push 如果设置了这个属性，当前跳转的地址，会加入到history stack中一条记录</span><br><span class="line">              from 设置当前来源的页面地址</span><br><span class="line">                   &lt;Redirect from='/custom' to='/custom/list' /&gt;如果当前请求的HASH地址是"/custom"，我们让其重定向到/custom/list</span><br><span class="line">              */&#125;</span><br><span class="line">        &#123;/*&lt;Redirect to='/?lx=404' /&gt;*/&#125;</span><br><span class="line">        &lt;Redirect to=&#123;&#123;pathname:'/',search:'?lx=404'&#125;&#125; /&gt;</span><br><span class="line">    &lt;/Switch&gt;</span><br><span class="line"></span><br><span class="line">&lt;/HashRouter&gt;,root);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+        </div>
+        <div class="post-tool">
+            <a class="btn-thumbs-up" href="javascript:void(0);" data-cid="52" title="95">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 打赏
+            </a>
+        </div>
+        
+        <div class="post-tags">标签：
+            
+            <a href="/tags/JavaScript/">JavaScript</a>
+            
+            <a href="/tags/React/">React</a>
+            
+        </div>
+        
+    </article>
+    
+    <p>本文代表个人观点，内容仅供参考。若有不恰当之处，望不吝赐教！</p>
+    
+    
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = 'http://lsw.name/front-end/1500124708.html';
+        this.page.identifier = 'front-end//1500124708.html';
+    };
+    (function () { // DON'T EDIT BELOW THIS LINE
+        var d = document, disqus_shortname = 'shuoit', s = d.createElement('script');
+        s.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+        Disqus.</a></noscript>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        </div><!-- end #main-->
+    </div><!-- end #body -->
+    <footer class="footer">
+    <div class="footer-inner">
+        <p>
+            <a href="/about"  title="关于本站">关于本站</a>&nbsp;&nbsp;<em>·</em>&nbsp;&nbsp;
+            <!-- 自定义链接 -->
+            <a href="/help" title="help" >急救中心</a>&nbsp;&nbsp;<em>·</em>&nbsp;&nbsp;
+            <a href="/links" title="友情链接">友情链接</a>&nbsp;&nbsp;<em>·</em>&nbsp;&nbsp;
+            <a href="/app" title="App下载">App下载</a>
+        </p>
+        <p>
+            本站点采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>，已建立<a href="/timeline" id="siteBuildingTime"></a>天<br/>
+            ©2017 基于<a href="http://hexo.io" target="_blank">Hexo</a>搭建
+            ，主题&nbsp;<a href="https://github.com/tangkunyin/hexo-theme-jsimple" target="_blank">JSimple</a>
+            ，作者<a href="http://lsw.name" target="_blank">刘某某</a>
+            ，Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+        </p>
+        
+<!-- Tencent Analytics -->
+<script type="text/javascript" src="//tajs.qq.com/stats?sId=65036274" charset="UTF-8"></script>
+
+
+    </div>
+</footer>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="/js/InsightSearch.js"></script>
+<script src="/js/SimpleCore.js"></script>
+
+</div>
+<div class="fixed-btn">
+    <a class="btn-gotop" href="javascript:"> <i class="fa fa-angle-up"></i></a>
+</div>
+<script>
+    $(function () {
+        SimpleCore.init({
+            buildingTime: '01/20/2018',
+            current: $('.post-tags').length > 0 ? 'post' : 'archive',
+            snsQRCode: '/images/sns-qrcode.png',
+            donateImg: '/images/donate-qr.png',
+        });
+    });
+</script>
+</body>
+</html>
