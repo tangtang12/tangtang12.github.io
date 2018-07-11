@@ -20,7 +20,7 @@
 <link rel="shortcut icon" href="/images/favicon.png">
 
 
-<title>react 的生命函数 - 文艺青年</title>
+<title>promise 原理 - 文艺青年</title>
 
 <meta name="keywords" content="原创IT博客你应该为梦想全力以赴，而不是到最后甘愿认输。">
 
@@ -94,7 +94,7 @@
         <li><a href="/">最新</a></li>
         
             
-                <li class="">
+                <li class="active">
                     <a href="/categories/front-end" data-name="前端">前端</a>
                 </li>
             
@@ -102,7 +102,7 @@
                     <a href="/categories/back-end" data-name="node">node</a>
                 </li>
             
-                <li class="active">
+                <li class="">
                     <a href="/categories/product-design" data-name="框架">框架</a>
                 </li>
             
@@ -158,45 +158,17 @@
                 </a>
                 <p><span class="label">作者</span>
                     <a href="https://lsw.name" target="_blank">刘某某</a>
-                    <span title="最后编辑于2017-07-11">2017-07-11</span>
+                    <span title="最后编辑于2017-06-10">2017-06-10</span>
                 </p>
                 <p>一个写代码的「伪文人」</p>
             </div>
-            <h2 class="post-title">React 的生命函数</h2>
+            <h2 class="post-title">Promise 原理</h2>
             <div class="post-meta">
-                本文总共538个字 | 您是第<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
+                本文总共2188个字 | 您是第<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
             </div>
         </div>
         <div class="post-content markdown-body">
-            <h1 id="React"><a href="#React" class="headerlink" title="React"></a>React</h1><h2 id="生命周期函数-钩子函数"><a href="#生命周期函数-钩子函数" class="headerlink" title="生命周期函数(钩子函数)"></a>生命周期函数(钩子函数)</h2><blockquote>
-<p>描述一个组件或者程序从创建到销毁的过程，我们可以在过程中间基于钩子函数完成一些自己的操作(例如：在第一次渲染完成做什么，或者第二次即将重新渲染之前做什么等…)</p>
-</blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/CEB40C1E9B8F45939FF8471B478CCFF2?method=download&amp;shareKey=c431a71319f611e20217680281aa15fb" alt="image"></p>
-<blockquote>
-<p>[基本流程]</p>
-</blockquote>
-<ul>
-<li>constructor 创建一个组件</li>
-<li>componentWillMount 第一次渲染之前</li>
-<li>render 第一次渲染</li>
-<li>componentDidMount 第一次渲染之后<blockquote>
-<p>[修改流程:当组件的状态数据发生改变(setState)或者传递给组件的属性发生改变(重新调用组件传递不同的属性)都会引发 render 重新执行渲染(渲染也是差异渲染)]</p>
-</blockquote>
-</li>
-<li>shouldComponentUpdate 是否允许组件重新渲染(允许则执行后面函数，不允许直接结束即可)</li>
-<li>componentWillUpdate 重新渲染之前</li>
-<li>render 第二次及以后重新渲染</li>
-<li><p>componentDidUpdate 重新渲染之后</p>
-</li>
-<li><p>componentWillReceiveProps 父组件把传递给子组件的属性发生改变后触发的钩子函数</p>
-</li>
-</ul>
-<blockquote>
-<p>[卸载:原有的渲染的内容是不消失的，只不过以后不能基于数据改变视图了]</p>
-</blockquote>
-<ul>
-<li>componentWillUnmount 卸载组件之前(一般不用)</li>
-</ul>
+            <h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Promise</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(fn) &#123;</span><br><span class="line">    <span class="keyword">this</span>.value = <span class="literal">undefined</span>;</span><br><span class="line">    <span class="keyword">this</span>.state = <span class="string">"pending"</span>;</span><br><span class="line">    <span class="keyword">this</span>.resolveAry = [];</span><br><span class="line">    <span class="keyword">this</span>.rejectAry = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> resolveFn = <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        clearTimeout(timer);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.state === <span class="string">"pending"</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">this</span>.state = <span class="string">"success"</span>;</span><br><span class="line">        <span class="keyword">this</span>.resolveAry.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">          item(<span class="keyword">this</span>.value);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">let</span> rejectFn = <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        clearTimeout(timer);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.state === <span class="string">"pending"</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">this</span>.state = <span class="string">"failed"</span>;</span><br><span class="line">        <span class="keyword">this</span>.rejectAry.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">          item(<span class="keyword">this</span>.value);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">    fn(resolveFn, rejectFn);</span><br><span class="line">  &#125;</span><br><span class="line">  then(resolveCallback, rejectCallback) &#123;</span><br><span class="line">    <span class="keyword">typeof</span> resolveCallback !== <span class="string">"function"</span></span><br><span class="line">      ? (resolveCallback = <span class="function"><span class="params">res</span> =&gt;</span> res)</span><br><span class="line">      : <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">typeof</span> rejectCallback !== <span class="string">"function"</span></span><br><span class="line">      ? (rejectCallback = <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err <span class="keyword">instanceof</span> <span class="string">"Error"</span> ? err.message : err);</span><br><span class="line">        &#125;)</span><br><span class="line">      : <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.resolveAry.push(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">let</span> x = resolveCallback(<span class="keyword">this</span>.value);</span><br><span class="line">          x <span class="keyword">instanceof</span> <span class="built_in">Promise</span> ? <span class="built_in">Promise</span>.then(resolve, reject) : resolve(x);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">          reject(e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="keyword">this</span>.rejectAry.push(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">let</span> x = rejectCallback(<span class="keyword">this</span>.value);</span><br><span class="line">          x <span class="keyword">instanceof</span> <span class="built_in">Promise</span> ? <span class="built_in">Promise</span>.then(resolve, reject) : resolve(x);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">          reject(e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">catch</span>(reject) &#123;</span><br><span class="line">    <span class="keyword">this</span>.then(<span class="literal">null</span>, reject);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">static</span> all(promiseAry = []) &#123;</span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">0</span>,</span><br><span class="line">      result = [];</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; promiseAry.length; i++) &#123;</span><br><span class="line">        promiseAry[i].then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">          index++;</span><br><span class="line">          result[i] = res;</span><br><span class="line">          <span class="keyword">if</span> (index === promiseAry.length) &#123;</span><br><span class="line">            resolve(result);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;, reject);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         </div>
         <div class="post-tool">
@@ -208,8 +180,6 @@
         <div class="post-tags">标签：
             
             <a href="/tags/JavaScript/">JavaScript</a>
-            
-            <a href="/tags/React/">React</a>
             
         </div>
         
@@ -225,8 +195,8 @@
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = 'http://lsw.name/product-design/1499780723.html';
-        this.page.identifier = 'product-design//1499780723.html';
+        this.page.url = 'http://lsw.name/front-end/1497100708.html';
+        this.page.identifier = 'front-end//1497100708.html';
     };
     (function () { // DON'T EDIT BELOW THIS LINE
         var d = document, disqus_shortname = 'shuoit', s = d.createElement('script');
