@@ -20,7 +20,7 @@
 <link rel="shortcut icon" href="/images/favicon.png">
 
 
-<title>归档集 - 文艺青年</title>
+<title>react 的生命函数 - 文艺青年</title>
 
 <meta name="keywords" content="原创IT博客你应该为梦想全力以赴，而不是到最后甘愿认输。">
 
@@ -91,8 +91,26 @@
 </div>
             <div class="page-title">
     <ul>
-        <li><a href="/" data-name="首页" title="Back Home">首页</a></li>
-        <li><a href="/tags" data-name="标签云" title="标签云">标签</a></li>
+        <li><a href="/">最新</a></li>
+        
+            
+                <li class="">
+                    <a href="/categories/front-end" data-name="前端">前端</a>
+                </li>
+            
+                <li class="">
+                    <a href="/categories/back-end" data-name="node">node</a>
+                </li>
+            
+                <li class="active">
+                    <a href="/categories/product-design" data-name="框架">框架</a>
+                </li>
+            
+                <li class="">
+                    <a href="/categories/others" data-name="其他">其他</a>
+                </li>
+            
+        
         <li class="page-search">
     <form id="search" class="search-form">
         <label for="s" class="sr-only">请输入关键字</label>
@@ -134,47 +152,94 @@
 <div class="main-inner">
     <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
         <div class="post-header">
-            <h3 class="post-title">坦率的讲 - 本站目前共计3篇文章</h3>
-        </div>
-        <p>不信，你数数 ：） </p>
-        <div class="post-content markdown-body" itemprop="articleBody">
-            <div class="archives">
-                
-                
-                
-                
-                
-                <div class="archives-item">
-                    <h2>2017年07月</h2>
-                    <ul class="archives_list">
-                        
-                        <li>15日21:18:28
-                            <a href="/front-end/1500124708.html">Promise 原理</a>
-                        </li>
-                        
-                
-                
-                
-                        <li>11日21:45:23
-                            <a href="/product-design/1499780723.html">React 的生命函数</a>
-                        </li>
-                        
-                
-                
-                
-                        <li>01日22:14:28
-                            <a href="/product-design/1498918468.html">React 的 MVC 模式、脚手架以及把 JSX 渲染为真实的 DOM 原理</a>
-                        </li>
-                        
-                    </ul>
-                </div>
-                
-                
+            <div class="post-author clearfix">
+                <a class="avatar fleft" href="https://lsw.name" target="_blank">
+                    <img width="48" src="/images/favicon.png" alt="avatar"/>
+                </a>
+                <p><span class="label">作者</span>
+                    <a href="https://lsw.name" target="_blank">刘某某</a>
+                    <span title="最后编辑于2017-07-11">2017-07-11</span>
+                </p>
+                <p>一个写代码的「伪文人」</p>
+            </div>
+            <h2 class="post-title">React 的生命函数</h2>
+            <div class="post-meta">
+                本文总共538个字 | 您是第<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
             </div>
         </div>
-    </article>
-</div>
+        <div class="post-content markdown-body">
+            <h1 id="React"><a href="#React" class="headerlink" title="React"></a>React</h1><h2 id="生命周期函数-钩子函数"><a href="#生命周期函数-钩子函数" class="headerlink" title="生命周期函数(钩子函数)"></a>生命周期函数(钩子函数)</h2><blockquote>
+<p>描述一个组件或者程序从创建到销毁的过程，我们可以在过程中间基于钩子函数完成一些自己的操作(例如：在第一次渲染完成做什么，或者第二次即将重新渲染之前做什么等…)</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/CEB40C1E9B8F45939FF8471B478CCFF2?method=download&amp;shareKey=c431a71319f611e20217680281aa15fb" alt="image"></p>
+<blockquote>
+<p>[基本流程]</p>
+</blockquote>
+<ul>
+<li>constructor 创建一个组件</li>
+<li>componentWillMount 第一次渲染之前</li>
+<li>render 第一次渲染</li>
+<li>componentDidMount 第一次渲染之后<blockquote>
+<p>[修改流程:当组件的状态数据发生改变(setState)或者传递给组件的属性发生改变(重新调用组件传递不同的属性)都会引发 render 重新执行渲染(渲染也是差异渲染)]</p>
+</blockquote>
+</li>
+<li>shouldComponentUpdate 是否允许组件重新渲染(允许则执行后面函数，不允许直接结束即可)</li>
+<li>componentWillUpdate 重新渲染之前</li>
+<li>render 第二次及以后重新渲染</li>
+<li><p>componentDidUpdate 重新渲染之后</p>
+</li>
+<li><p>componentWillReceiveProps 父组件把传递给子组件的属性发生改变后触发的钩子函数</p>
+</li>
+</ul>
+<blockquote>
+<p>[卸载:原有的渲染的内容是不消失的，只不过以后不能基于数据改变视图了]</p>
+</blockquote>
+<ul>
+<li>componentWillUnmount 卸载组件之前(一般不用)</li>
+</ul>
 
+        </div>
+        <div class="post-tool">
+            <a class="btn-thumbs-up" href="javascript:void(0);" data-cid="52" title="95">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 打赏
+            </a>
+        </div>
+        
+        <div class="post-tags">标签：
+            
+            <a href="/tags/JavaScript/">JavaScript</a>
+            
+            <a href="/tags/React/">React</a>
+            
+        </div>
+        
+    </article>
+    
+    <p>本文代表个人观点，内容仅供参考。若有不恰当之处，望不吝赐教！</p>
+    
+    
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = 'http://lsw.name/product-design/1499780723.html';
+        this.page.identifier = 'product-design//1499780723.html';
+    };
+    (function () { // DON'T EDIT BELOW THIS LINE
+        var d = document, disqus_shortname = 'shuoit', s = d.createElement('script');
+        s.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+        Disqus.</a></noscript>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
         </div><!-- end #main-->
     </div><!-- end #body -->
     <footer class="footer">
