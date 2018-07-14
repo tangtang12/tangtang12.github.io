@@ -20,7 +20,7 @@
 <link rel="shortcut icon" href="/images/favicon.png">
 
 
-<title>vue的生命周期 - 文艺青年</title>
+<title>虚拟dom - 文艺青年</title>
 
 <meta name="keywords" content="原创IT博客你应该为梦想全力以赴，而不是到最后甘愿认输。">
 
@@ -94,7 +94,7 @@
         <li><a href="/">最新</a></li>
         
             
-                <li class="">
+                <li class="active">
                     <a href="/categories/front-end" data-name="前端">前端</a>
                 </li>
             
@@ -102,7 +102,7 @@
                     <a href="/categories/back-end" data-name="node">node</a>
                 </li>
             
-                <li class="active">
+                <li class="">
                     <a href="/categories/product-design" data-name="框架">框架</a>
                 </li>
             
@@ -158,35 +158,65 @@
                 </a>
                 <p><span class="label">作者</span>
                     <a href="https://lsw.name" target="_blank">刘某某</a>
-                    <span title="最后编辑于2017-05-22">2017-05-22</span>
+                    <span title="最后编辑于2017-08-10">2017-08-10</span>
                 </p>
                 <p>一个写代码的「伪文人」</p>
             </div>
-            <h2 class="post-title">Vue的生命周期</h2>
+            <h2 class="post-title">虚拟DOM</h2>
             <div class="post-meta">
-                本文总共886个字 | 您是第<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
+                本文总共1724个字 | 您是第<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
             </div>
         </div>
         <div class="post-content markdown-body">
-            <h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">"#app"</span>,</span><br><span class="line">  beforeCreate() &#123;&#125;, <span class="comment">//初始化数据之前，在这里获取不到data中数据</span></span><br><span class="line">  created() &#123;&#125;, <span class="comment">//数据初始化完成 可以获取和操作data的中的数据，一般请求数据在这里执行</span></span><br><span class="line">  beforeMount() &#123;&#125;, <span class="comment">//挂载之前 判断渲染模板正确与否</span></span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;); <span class="comment">//等DOM渲染完成之后再做执行</span></span><br><span class="line">  &#125;, <span class="comment">//挂载完成 视图就渲染了，一般操作元素在这，vue提供了一个ref的属性</span></span><br><span class="line">  beforeUpdate() &#123;&#125;, <span class="comment">//数据更新之前</span></span><br><span class="line">  updated() &#123;&#125;, <span class="comment">//数据更新完成 一般使用watch代替</span></span><br><span class="line">  beforeDestroy() &#123;&#125;, <span class="comment">//销毁之前</span></span><br><span class="line">  destroyed() &#123;&#125; <span class="comment">//销毁完成</span></span><br><span class="line">&#125;);</span><br><span class="line">vm.$destroy(); <span class="comment">//手动销毁实例，以前渲染好的和实例还在，相当于当前的vm与挂载好的内容没有关系，当实例操作时，不会再影响页面</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>局部组件的生命周期</p>
+            <h2 id="DOM创建的流程"><a href="#DOM创建的流程" class="headerlink" title="DOM创建的流程"></a>DOM创建的流程</h2><blockquote>
+<p>所有的浏览器的引擎工作流程都差不多，如上图大致分5步：</p>
+<ul>
+<li>创建DOM tree<ul>
+<li>用HTML分析器，分析HTML元素构建一颗DOM树</li>
+</ul>
+</li>
+<li>创建Style Rules 样式规则<ul>
+<li>用css分析器，分析CSS文件和元素上的inline样式，生成页面的样式表</li>
+</ul>
+</li>
+<li>构建Render tree<ul>
+<li>将上面的DOM树和样式表，关联起来，构建一颗Render树。这一过程又称为Attachment，这个DOM节点都有attach方法，接受样式信息，返回一个render对象(又称为renderer)。这些render对象最终会构建一颗render树</li>
+</ul>
+</li>
+<li>布局Layout<ul>
+<li>有了Render树后，浏览器开始布局，会为每个Render树上的节点确定一个显示屏上出现的精确坐标值</li>
+</ul>
+</li>
+<li>绘制Painting<ul>
+<li>Render树有了，节点显示的位置坐标也有了，最后就是调用每个节点的paint方法，让他们显示出来</li>
+</ul>
+</li>
+</ul>
 </blockquote>
-<ul>
-<li>组件的数据修改只会触发自己的 beforeUpdate 和 updated 不会触发父组件的生命周期</li>
-</ul>
+<h2 id="为什么出现虚拟DOM"><a href="#为什么出现虚拟DOM" class="headerlink" title="为什么出现虚拟DOM"></a>为什么出现虚拟DOM</h2><blockquote>
+<p>当你用传统的原生API或者JQ去操作DOM时，浏览器会从构建DOM树开始从头到尾执行一遍流程，会引发回流和重绘。在V8引擎中，可以将操作DOM放在一块执行，可以减少回流和重绘(优化方案)</p>
+<p>即使计算机硬件一直在更新迭代，操作DOM的代价仍旧是昂贵的，频繁操作还是会出现页面卡顿，影响用户的体验。真实的DOM节点，哪怕一个简单的DIV也包含着很多属性(window.getComputedStyle查看元素的属性)</p>
+<p>虚拟DOM就是为了解决这个浏览器性能问题而被设计出来的。假如一次操作中有10次更新DOM的动作，虚拟DOM不会立即操作DOM。而是将这10次更新的diff内容保存到本地的一个JS对象中，最终将这个JS对象一次性attach到DOM树上，通知浏览器去执行绘制工作，这样可以避免大量的无谓的计算量</p>
+</blockquote>
+<h2 id="实现一个虚拟DOM"><a href="#实现一个虚拟DOM" class="headerlink" title="实现一个虚拟DOM"></a>实现一个虚拟DOM</h2><blockquote>
+<p>真实的DOM<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"real-container"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Real Dom<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>xxx<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span>item1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span>item2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span>item3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
 <blockquote>
-<p>ref</p>
+<p>虚拟DOM<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> tree =Element(<span class="string">'div'</span>,&#123;<span class="attr">id</span>:<span class="string">"container"</span>&#125;,</span><br><span class="line">    [</span><br><span class="line">        Element(<span class="string">'p'</span>,&#123;&#125;,[<span class="string">'DOM'</span>]),</span><br><span class="line">        Element(<span class="string">'div'</span>,&#123;&#125;,[<span class="string">'xxx'</span>]),</span><br><span class="line">        Element(<span class="string">'ul'</span>,&#123;&#125;,[</span><br><span class="line">            Element(<span class="string">'li'</span>,&#123;<span class="attr">class</span>:<span class="string">"item"</span>&#125;,[<span class="string">'item1'</span>]),</span><br><span class="line">            Element(<span class="string">'li'</span>,&#123;<span class="attr">class</span>:<span class="string">"item"</span>&#125;,[<span class="string">'item2'</span>]),</span><br><span class="line">            Element(<span class="string">'li'</span>,&#123;<span class="attr">class</span>:<span class="string">"item"</span>&#125;,[<span class="string">'item3'</span>]),</span><br><span class="line">        ]),</span><br><span class="line">    ]</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>react是JSX语法，通过babel转义为类似的虚拟DOM</p>
+</blockquote>
+<h2 id="Diff-算法"><a href="#Diff-算法" class="headerlink" title="Diff 算法"></a>Diff 算法</h2><blockquote>
+<p>我们已经完成了创建虚拟DOM并将其映射成真实DOM的工作，这样所有的更新都可以先反映到DOM上。</p>
+</blockquote>
+<h4 id="有大致4中情况"><a href="#有大致4中情况" class="headerlink" title="有大致4中情况"></a>有大致4中情况</h4><blockquote>
 <ul>
-<li>vue 提供的 给想要获取的元素加一个属性 ref=’值’,如果设置重复，因为 ref 存取的是对象形式属性名不能重复，只能获取后面的一个</li>
-<li>如果是循环的元素，会把所有的循环得到的元素放到一个数组里面</li>
-<li>获取的值在$refs 属性里</li>
+<li>节点类型的改变，如上上述的p变为h3，将整个过程称之为replace，直接将旧节点卸载并装载新节点就行</li>
+<li>仅仅是属性或者属性值变了，将这个过程称之为PROPS，执行节点更新的一系列方法(生命周期)<br>-文本变了，文本对也是一个Text Node，也比较简单，直接修改文字内容就行，这个过程为TEXT</li>
+<li>移动、增加、删除子节点，这个过程称之为peorder。</li>
 </ul>
 </blockquote>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ref</span>=<span class="string">"name"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-for</span>=<span class="string">"item in items"</span> <span class="attr">ref</span>=<span class="string">"p"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>可以给组件添加一个 ref 的属性，在 vue 的实例中可以通过$refs 获取使用</li>
-</ul>
 
         </div>
         <div class="post-tool">
@@ -198,8 +228,6 @@
         <div class="post-tags">标签：
             
             <a href="/tags/JavaScript/">JavaScript</a>
-            
-            <a href="/tags/Vue/">Vue</a>
             
         </div>
         
@@ -215,8 +243,8 @@
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = 'http://lsw.name/product-design/1495451422.html';
-        this.page.identifier = 'product-design//1495451422.html';
+        this.page.url = 'http://lsw.name/front-end/1502371108.html';
+        this.page.identifier = 'front-end//1502371108.html';
     };
     (function () { // DON'T EDIT BELOW THIS LINE
         var d = document, disqus_shortname = 'shuoit', s = d.createElement('script');
