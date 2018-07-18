@@ -20,7 +20,7 @@
 <link rel="shortcut icon" href="/images/favicon.png">
 
 
-<title>标签云 - 文艺青年</title>
+<title>ajax的原理 - 文艺青年</title>
 
 <meta name="keywords" content="原创IT博客你应该为梦想全力以赴，而不是到最后甘愿认输。">
 
@@ -91,8 +91,26 @@
 </div>
             <div class="page-title">
     <ul>
-        <li><a href="/" data-name="首页" title="Back Home">首页</a></li>
-        <li><a href="/archives" data-name="归档" title="归档">归档</a></li>
+        <li><a href="/">最新</a></li>
+        
+            
+                <li class="active">
+                    <a href="/categories/front-end" data-name="前端">前端</a>
+                </li>
+            
+                <li class="">
+                    <a href="/categories/back-end" data-name="node">node</a>
+                </li>
+            
+                <li class="">
+                    <a href="/categories/product-design" data-name="框架">框架</a>
+                </li>
+            
+                <li class="">
+                    <a href="/categories/others" data-name="其他">其他</a>
+                </li>
+            
+        
         <li class="page-search">
     <form id="search" class="search-form">
         <label for="s" class="sr-only">请输入关键字</label>
@@ -134,23 +152,74 @@
 <div class="main-inner">
     <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
         <div class="post-header">
-            <h3 class="post-title">总的来说 - 目前共计3类标签</h3>
+            <div class="post-author clearfix">
+                <a class="avatar fleft" href="https://lsw.name" target="_blank">
+                    <img width="48" src="/images/favicon.png" alt="avatar"/>
+                </a>
+                <p><span class="label">作者</span>
+                    <a href="https://lsw.name" target="_blank">刘某某</a>
+                    <span title="最后编辑于2017-06-10">2017-06-10</span>
+                </p>
+                <p>一个写代码的「伪文人」</p>
+            </div>
+            <h2 class="post-title">Ajax的原理</h2>
+            <div class="post-meta">
+                本文总共357个字 | 您是第<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
+            </div>
         </div>
-        <p><img src="/images/tags-bg.jpg" alt="tags-bg"></p> 
-        <div class="post-content markdown-body" itemprop="articleBody">
-            <ul class="tag-list">
-                
-                <li><a href="/tags/JavaScript/">JavaScript(15)</a></li>
-                
-                <li><a href="/tags/React/">React(6)</a></li>
-                
-                <li><a href="/tags/Vue/">Vue(7)</a></li>
-                
-            </ul>
-        </div>
-    </article>
-</div><!-- end #main-->
+        <div class="post-content markdown-body">
+            <h1 id="ajax的原理"><a href="#ajax的原理" class="headerlink" title="ajax的原理"></a>ajax的原理</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> xhr =<span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'get'</span>,<span class="string">'地址'</span>,[<span class="literal">true</span>/<span class="literal">false</span>]);</span><br><span class="line">xhr.onreadystatechange=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.readyState==<span class="number">4</span> &amp;&amp; xhr.status==<span class="number">200</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> result=xhr.responseText;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">xhr.send(<span class="literal">null</span>);<span class="comment">//如果是post请求send中放需要传的信息</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>存有 XMLHttpRequest 的状态。从 0 到 4 发生变化。</p>
+<ul>
+<li>0: 请求未初始化</li>
+<li>1: 服务器连接已建立</li>
+<li>2: 请求已接收</li>
+<li>3: 请求处理中</li>
+<li>4: 请求已完成，且响应已就绪</li>
+</ul>
+</blockquote>
 
+        </div>
+        <div class="post-tool">
+            <a class="btn-thumbs-up" href="javascript:void(0);" data-cid="52" title="95">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 打赏
+            </a>
+        </div>
+        
+        <div class="post-tags">标签：
+            
+            <a href="/tags/JavaScript/">JavaScript</a>
+            
+        </div>
+        
+    </article>
+    
+    <p>本文代表个人观点，内容仅供参考。若有不恰当之处，望不吝赐教！</p>
+    
+    
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = 'http://lsw.name/front-end/1497103210.html';
+        this.page.identifier = 'front-end//1497103210.html';
+    };
+    (function () { // DON'T EDIT BELOW THIS LINE
+        var d = document, disqus_shortname = 'shuoit', s = d.createElement('script');
+        s.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+        Disqus.</a></noscript>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
         </div><!-- end #main-->
     </div><!-- end #body -->
     <footer class="footer">
